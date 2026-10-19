@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Detalles del plato</title>
+</head>
+<body>
+<div th:replace="~{components/nav :: nav}"></div>
+<section th:if="${plato != null}">
+    <h1 th:text="${plato.nombre}"></h1>
+    <p>Precio: <span th:text="${plato.precio}"></span>€</p>
+    <p>Tipo: <span th:text="${plato.tipo}"></span></p>
+    <p>Ingredientes:</p>
+    <ul>
+        <li th:each="ingrediente : ${plato.ingredientes}" th:text="${ingrediente.nombre}"></li>
+    </ul>
+</section>
+<h1 th:if="${plato == null}">Plato no encontrado</h1>
+</body>
+</html>

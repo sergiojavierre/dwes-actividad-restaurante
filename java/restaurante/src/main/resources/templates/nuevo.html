@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Nuevo plato</title>
+</head>
+<body>
+<div th:replace="~{components/nav :: nav}"></div>
+<form method="post" th:action="@{/platos}">
+    <label for="nombre">Nombre:</label>
+    <input id="nombre" type="text" name="nombre" required>
+    <label for="tipo">Tipo:</label>
+    <select id="tipo" name="tipo" required>
+        <option value="">Seleccione un tipo</option>
+        <option value="primero">Primero</option>
+        <option value="segundo">Segundo</option>
+        <option value="postre">Postre</option>
+    </select>
+    <label for="precio">Precio:</label>
+    <input id="precio" type="number" name="precio" step="0.01" min="0" required>
+    <fieldset>
+        <legend>Ingredientes:</legend>
+        <div th:each="ingrediente : ${ingredientes}">
+            <input type="checkbox" name="ingredientes" th:id="${'ingrediente-' + ingrediente.nombre}"
+                   th:value="${ingrediente.nombre}">
+            <label th:for="${'ingrediente-' + ingrediente.nombre}" th:text="${ingrediente.nombre}"></label>
+        </div>
+    </fieldset>
+    <button type="submit">Guardar</button>
+</form>
+</body>
+</html>

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Restaurante</title>
+</head>
+<body>
+<div th:replace="~{components/nav :: nav}"></div>
+<form method="get" th:action="@{/}">
+    <label for="tipo">Filtrar por tipo:</label>
+    <select id="tipo" name="tipo">
+        <option value="">Tipo de plato</option>
+        <option value="primero" th:selected="${tipo == 'primero'}">Primero</option>
+        <option value="segundo" th:selected="${tipo == 'segundo'}">Segundo</option>
+        <option value="postre" th:selected="${tipo == 'postre'}">Postre</option>
+    </select>
+    <label for="ingrediente">Filtrar por ingrediente:</label>
+    <input id="ingrediente" type="text" name="ingrediente" placeholder="Ingrediente" th:value="${ingrediente}">
+    <button type="submit">Filtrar</button>
+</form>
+<ul>
+    <li th:each="plato : ${platos}">
+        <span th:text="|${plato.nombre} - ${plato.precio}€|"></span><br>
+        <a th:href="@{/platos/{nombre}(nombre=${plato.nombre})}">Detalles</a>
+        <a th:href="@{/platos/{nombre}/editar(nombre=${plato.nombre})}">Editar</a>
+        <form method="post" th:action="@{/platos/{nombre}/eliminar(nombre=${plato.nombre})}" style="display: inline">
+            <button type="submit">Eliminar</button>
+        </form>
+    </li>
+</ul>
+</body>
+</html>
